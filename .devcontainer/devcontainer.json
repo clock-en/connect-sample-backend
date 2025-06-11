@@ -1,0 +1,38 @@
+{
+  "name": "connect-sample-backend",
+  "dockerComposeFile": "../.environments/local/compose.yml",
+  "service": "app",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "go.toolsEnvVars": {
+          "GO111MODULE": "on"
+        },
+        "go.useLanguageServer": true,
+        "[go]": {
+          "editor.defaultFormatter": "golang.go",
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+            "source.fixAll": "explicit"
+          }
+        },
+        "gopls": {
+          "local": "github.com/clock-en/connect-sample-backend",
+          "importShortcut": "Both",
+          "ui.diagnostic.staticcheck": true
+        }
+      },
+      "extensions": [
+        "aaron-bond.better-comments",
+        "ms-vscode.makefile-tools",
+        "golang.go",
+        "juggernautjp.less-toml",
+        "graphql.vscode-graphql",
+        "hashicorp.terraform"
+      ],
+      "remoteUser": "vscode"
+    }
+  }
+}

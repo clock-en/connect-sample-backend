@@ -1,0 +1,51 @@
+services:
+  app:
+    container_name: connect-sample-backend-app
+    build:
+      context: ../..
+      dockerfile: .environments/local/docker/golang/Dockerfile
+    ports:
+      - '8080:8080'
+    volumes:
+      - ../..:/app
+    env_file:
+      - ./docker/golang/.env
+    depends_on:
+      - db
+      # NOTE: db と app の構築順がうまくいかない場合に設定する
+      # db:
+      #   condition: service_healthy
+    networks:
+      - connect_sample_backend_dev_network
+
+  db:
+    container_name: connect-sample-backend-db
+    build:
+      context: ../..
+      dockerfile: .environments/local/docker/db/Dockerfile
+    ports:
+      - 5432:5432
+    volumes:
+      - connect_sample_backend_postgres_volume:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=dev_db
+      - TZ=Asia/Tokyo
+    # NOTE: db と app の構築順がうまくいかない場合に設定する
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
+    #   interval: 1s
+    #   timeout: 5s
+    #   retries: 3
+    #   start_period: 10s
+    networks:
+      - connect_sample_backend_dev_network
+
+volumes:
+  connect_sample_backend_postgres_volume:
+    driver: local
+
+networks:
+  connect_sample_backend_dev_network:
+    driver: bridge
