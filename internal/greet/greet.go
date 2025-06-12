@@ -3,7 +3,7 @@ package greet
 import (
 	"context"
 	"fmt"
-	v1greet "github.com/clock-en/connect-sample-backend/pbgen/submodules/protobuf/v1/greet"
+	greetv1 "github.com/clock-en/connect-sample-backend/pbgen/submodules/protobuf/greet/v1"
 	"log"
 
 	"connectrpc.com/connect"
@@ -13,10 +13,10 @@ type GreetServer struct{}
 
 func (s *GreetServer) Greet(
 	ctx context.Context,
-	req *connect.Request[v1greet.GreetRequest],
-) (*connect.Response[v1greet.GreetResponse], error) {
+	req *connect.Request[greetv1.GreetRequest],
+) (*connect.Response[greetv1.GreetResponse], error) {
 	log.Println("Request headers: ", req.Header())
-	res := connect.NewResponse(&v1greet.GreetResponse{
+	res := connect.NewResponse(&greetv1.GreetResponse{
 		Greeting: fmt.Sprintf("Hello, %s!", req.Msg.Name),
 	})
 	res.Header().Set("Greet-Version", "v1")
