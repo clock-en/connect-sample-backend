@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/clock-en/connect-sample-backend/pbgen/submodules/protobuf/v1/greet/v1greetconnect"
+	"github.com/clock-en/connect-sample-backend/pbgen/submodules/protobuf/greet/v1/greetv1connect"
 	"golang.org/x/net/http2"
 	"golang.org/x/net/http2/h2c"
 	"log"
@@ -13,7 +13,7 @@ import (
 func main() {
 	greeter := &greet.GreetServer{}
 	mux := http.NewServeMux()
-	path, handler := v1greetconnect.NewGreetServiceHandler(greeter)
+	path, handler := greetv1connect.NewGreetServiceHandler(greeter)
 	log.Println(path)
 	mux.Handle(path, handler)
 	http.ListenAndServe(
