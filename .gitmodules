@@ -1,4 +1,4 @@
-[submodule "submodules/connect-sample-protobuf"]
-	path = submodules/connect-sample-protobuf
+[submodule "submodules/protobuf"]
+	path = submodules/protobuf
 	url = https://github.com/clock-en/connect-sample-protobuf.git
 	branch = develop
