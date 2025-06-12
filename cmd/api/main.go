@@ -8,6 +8,7 @@ import (
 	"net/http"
 
 	"github.com/clock-en/connect-sample-backend/internal/greet"
+	"github.com/rs/cors"
 )
 
 func main() {
@@ -16,9 +17,13 @@ func main() {
 	path, handler := greetv1connect.NewGreetServiceHandler(greeter)
 	log.Println(path)
 	mux.Handle(path, handler)
+
+	// TODO: 接続確認のため、雑な設定
+	corsHandler := cors.AllowAll().Handler(h2c.NewHandler(mux, &http2.Server{}))
+
 	http.ListenAndServe(
-		"localhost:8080",
+		":8080",
 		// Use h2c so we can serve HTTP/2 without TLS.
-		h2c.NewHandler(mux, &http2.Server{}),
+		corsHandler,
 	)
 }

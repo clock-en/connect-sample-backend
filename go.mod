@@ -4,6 +4,7 @@ go 1.24
 
 require (
 	connectrpc.com/connect v1.18.1
+	github.com/rs/cors v1.11.1
 	golang.org/x/net v0.23.0
 	google.golang.org/protobuf v1.36.6
 )
